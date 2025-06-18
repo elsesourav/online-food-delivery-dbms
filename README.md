@@ -1,33 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Online Food Delivery App
+
+A simple and modern food delivery application built with Next.js 15.3.2, React 19, and MySQL.
+
+## Features
+
+-  🍕 Browse restaurants and menus
+-  🛒 Add items to cart
+-  👤 User authentication (sign up/sign in)
+-  📱 Responsive design
+-  🎨 Modern UI with Shadcn components
+-  🔐 Secure password hashing
+-  📊 Simple database design
+
+## Tech Stack
+
+### Frontend
+
+-  Next.js 15.3.2 - React framework with server-side rendering
+-  React 19 - UI library
+-  Tailwind CSS - Utility-first CSS framework
+-  Shadcn UI - High-quality UI components
+-  React Icons - Icon library
+-  React Hook Form - Form validation
+-  Zod - Schema validation
+-  Next Themes - Theme management
+
+### Backend
+
+-  Next.js API Routes - Serverless API endpoints
+-  MySQL - Relational database
+-  NextAuth.js - Authentication
+-  bcrypt - Password hashing
+
+## Prerequisites
+
+-  Node.js (v18 or higher)
+-  MySQL server
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone and navigate to the project**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```bash
+   cd online-food-delivery
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+
+   Create a `.env.local` file in the root directory with the following variables:
+
+   ```env
+   MYSQL_HOST=localhost
+   MYSQL_USER=root
+   MYSQL_PASSWORD=your_mysql_password
+   MYSQL_DATABASE=online_food_delivery
+   NEXTAUTH_SECRET=your_nextauth_secret
+   NEXTAUTH_URL=http://localhost:3000
+   ```
+
+4. **Initialize the database**
+
+   Make sure MySQL server is running, then execute:
+
+   ```bash
+   npm run init-db
+   ```
+
+   This will:
+
+   -  Create the `online_food_delivery` database
+   -  Create all necessary tables (users, restaurants, menu_items, orders, order_items)
+   -  Insert sample restaurant and menu data
+
+   Alternatively, you can run the SQL file directly:
+
+   ```bash
+   mysql -u root < database.sql
+   ```
+
+5. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
+## Database Schema
+
+The application uses a simple database design with minimal tables:
+
+-  **users** - Store user information (customers, admins, delivery personnel)
+-  **restaurants** - Restaurant information
+-  **menu_items** - Food items for each restaurant
+-  **orders** - Customer orders
+-  **order_items** - Items in each order
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/                 # API routes
+│   ├── auth/               # Authentication pages
+│   ├── restaurants/        # Restaurant pages
+│   └── page.tsx           # Home page
+├── components/
+│   └── ui/                # Shadcn UI components
+└── lib/
+    ├── auth.ts            # NextAuth configuration
+    ├── db.ts              # Database connection
+    ├── schemas.ts         # Zod validation schemas
+    └── utils.ts           # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-  `npm run dev` - Start development server
+-  `npm run build` - Build for production
+-  `npm run start` - Start production server
+-  `npm run lint` - Run ESLint
+-  `npm run init-db` - Initialize database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features Overview
 
-## Learn More
+### Authentication
 
-To learn more about Next.js, take a look at the following resources:
+-  User registration and login
+-  Secure password hashing with bcrypt
+-  Session management with NextAuth.js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Restaurant Browsing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-  View all available restaurants
+-  Browse restaurant menus by category
+-  Add items to shopping cart
+
+### Simple Cart System
+
+-  Add/remove items from cart
+-  View order total
+-  Responsive cart sidebar
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is for educational purposes.
 
 ## Deploy on Vercel
 

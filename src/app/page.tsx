@@ -1,103 +1,191 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+   return (
+      <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+         {/* Header */}
+         <nav className="bg-white shadow-sm border-b">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+               <div className="flex justify-between items-center h-16">
+                  <div className="flex items-center">
+                     <h1 className="text-2xl font-bold text-orange-600">
+                        FoodDelivery
+                     </h1>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                     <div className="relative group">
+                        <Button variant="outline">Sign In</Button>
+                        <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                           <div className="py-1">
+                              <Link
+                                 href="/auth/customer/signin"
+                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              >
+                                 Customer Login
+                              </Link>
+                              <Link
+                                 href="/auth/restaurant/signin"
+                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              >
+                                 Restaurant Manager
+                              </Link>
+                              <Link
+                                 href="/auth/delivery/signin"
+                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              >
+                                 Delivery Personnel
+                              </Link>
+                           </div>
+                        </div>
+                     </div>
+                     <Link href="/auth/signup">
+                        <Button>Sign Up</Button>
+                     </Link>
+                  </div>
+               </div>
+            </div>
+         </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+         {/* Hero Section */}
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="text-center">
+               <h1 className="text-4xl font-bold text-gray-900 sm:text-6xl">
+                  Delicious Food
+                  <span className="text-orange-600"> Delivered Fast</span>
+               </h1>
+               <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
+                  Order from your favorite restaurants and get fresh, hot meals
+                  delivered to your doorstep in minutes.
+               </p>
+               <div className="mt-10">
+                  <Link href="/restaurants">
+                     <Button size="lg" className="text-lg px-8 py-3">
+                        Order Now
+                     </Button>
+                  </Link>
+               </div>
+            </div>
+         </div>
+
+         {/* Features */}
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center mb-16">
+               <h2 className="text-3xl font-bold text-gray-900">
+                  Why Choose Us?
+               </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               <Card>
+                  <CardHeader>
+                     <CardTitle className="text-center">
+                        🚀 Fast Delivery
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                     <CardDescription className="text-center">
+                        Get your food delivered in 30 minutes or less
+                     </CardDescription>
+                  </CardContent>
+               </Card>
+               <Card>
+                  <CardHeader>
+                     <CardTitle className="text-center">
+                        🍕 Quality Food
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                     <CardDescription className="text-center">
+                        Fresh ingredients and carefully prepared meals
+                     </CardDescription>
+                  </CardContent>
+               </Card>
+               <Card>
+                  <CardHeader>
+                     <CardTitle className="text-center">
+                        💯 Easy Ordering
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                     <CardDescription className="text-center">
+                        Simple and intuitive ordering process
+                     </CardDescription>
+                  </CardContent>
+               </Card>
+            </div>
+         </div>
+
+         {/* User Types */}
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
+            <div className="text-center mb-16">
+               <h2 className="text-3xl font-bold text-gray-900">
+                  Join Our Platform
+               </h2>
+               <p className="mt-4 text-xl text-gray-600">
+                  Different access portals for different users
+               </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               <Card className="border-orange-200 hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                     <CardTitle className="text-center text-orange-600">
+                        🛒 Customers
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                     <CardDescription className="mb-4">
+                        Order delicious food from your favorite restaurants
+                     </CardDescription>
+                     <Link href="/auth/customer/signin">
+                        <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                           Customer Login
+                        </Button>
+                     </Link>
+                  </CardContent>
+               </Card>
+               <Card className="border-blue-200 hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                     <CardTitle className="text-center text-blue-600">
+                        🏪 Restaurant Managers
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                     <CardDescription className="mb-4">
+                        Manage your restaurant orders and menu items
+                     </CardDescription>
+                     <Link href="/auth/restaurant/signin">
+                        <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                           Manager Portal
+                        </Button>
+                     </Link>
+                  </CardContent>
+               </Card>
+               <Card className="border-green-200 hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                     <CardTitle className="text-center text-green-600">
+                        🚚 Delivery Personnel
+                     </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                     <CardDescription className="mb-4">
+                        Accept deliveries and manage your delivery schedule
+                     </CardDescription>
+                     <Link href="/auth/delivery/signin">
+                        <Button className="w-full bg-green-600 hover:bg-green-700">
+                           Delivery Portal
+                        </Button>
+                     </Link>
+                  </CardContent>
+               </Card>
+            </div>
+         </div>
+      </div>
+   );
 }
