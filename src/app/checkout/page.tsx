@@ -14,9 +14,9 @@ import { Label } from "@/components/ui/label";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
-export default function Checkout() {
+function CheckoutContent() {
    const { data: session, status } = useSession();
    const searchParams = useSearchParams();
    const router = useRouter();
@@ -261,5 +261,23 @@ export default function Checkout() {
             </div>
          </div>
       </div>
+   );
+}
+
+function CheckoutFallback() {
+   return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+         <div className="text-lg text-gray-900 dark:text-gray-100">
+            Loading checkout...
+         </div>
+      </div>
+   );
+}
+
+export default function Checkout() {
+   return (
+      <Suspense fallback={<CheckoutFallback />}>
+         <CheckoutContent />
+      </Suspense>
    );
 }
