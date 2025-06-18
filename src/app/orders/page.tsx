@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -108,7 +109,7 @@ export default function CustomerOrders() {
 
    if (status === "loading" || loading) {
       return (
-         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
             <div className="text-lg">Loading...</div>
          </div>
       );
@@ -116,16 +117,16 @@ export default function CustomerOrders() {
 
    if (!session || session.user.role !== "customer") {
       return (
-         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
             <div className="text-lg">Unauthorized access</div>
          </div>
       );
    }
 
    return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
          {/* Header */}
-         <nav className="bg-white shadow-sm border-b">
+         <nav className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="flex justify-between items-center h-16">
                   <Link href="/" className="text-2xl font-bold text-orange-600">
@@ -144,6 +145,7 @@ export default function CustomerOrders() {
                      >
                         Sign Out
                      </Button>
+                     <ThemeToggle />
                   </div>
                </div>
             </div>
@@ -151,7 +153,9 @@ export default function CustomerOrders() {
 
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="mb-8">
-               <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
+               <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                  My Orders
+               </h1>
                <p className="mt-2 text-gray-600">
                   Track your current and past orders
                </p>
@@ -214,7 +218,7 @@ export default function CustomerOrders() {
                                     Order Info
                                  </h4>
                                  <p className="text-sm text-gray-600">
-                                    Total: $
+                                    Total: ₹
                                     {Number(order.total_amount).toFixed(2)}
                                  </p>
                                  {order.delivered_at && (

@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -111,7 +112,7 @@ export default function DeliveryDashboard() {
 
    if (status === "loading" || loading) {
       return (
-         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
             <div className="text-lg">Loading...</div>
          </div>
       );
@@ -119,7 +120,7 @@ export default function DeliveryDashboard() {
 
    if (!session || session.user.role !== "delivery_man") {
       return (
-         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
             <div className="text-lg">Unauthorized access</div>
          </div>
       );
@@ -133,9 +134,9 @@ export default function DeliveryDashboard() {
    );
 
    return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
          {/* Header */}
-         <nav className="bg-white shadow-sm border-b">
+         <nav className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="flex justify-between items-center h-16">
                   <div className="flex items-center">
@@ -144,7 +145,7 @@ export default function DeliveryDashboard() {
                      </h1>
                   </div>
                   <div className="flex items-center space-x-4">
-                     <span className="text-sm text-gray-600">
+                     <span className="text-sm text-gray-600 dark:text-gray-300">
                         Welcome, {session.user.name}
                      </span>
                      <Button
@@ -153,6 +154,7 @@ export default function DeliveryDashboard() {
                      >
                         Sign Out
                      </Button>
+                     <ThemeToggle />
                   </div>
                </div>
             </div>
@@ -161,7 +163,7 @@ export default function DeliveryDashboard() {
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Available Orders */}
             <div className="mb-8">
-               <h2 className="text-2xl font-bold text-gray-900 mb-4">
+               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                   Available Deliveries ({availableOrders.length})
                </h2>
                {availableOrders.length === 0 ? (
@@ -204,7 +206,7 @@ export default function DeliveryDashboard() {
                                     {order.delivery_address}
                                  </p>
                                  <p className="text-sm">
-                                    <strong>Amount:</strong> $
+                                    <strong>Amount:</strong> ₹
                                     {Number(order.total_amount).toFixed(2)}
                                  </p>
                               </div>
@@ -225,7 +227,7 @@ export default function DeliveryDashboard() {
 
             {/* My Orders */}
             <div>
-               <h2 className="text-2xl font-bold text-gray-900 mb-4">
+               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                   My Deliveries ({myOrders.length})
                </h2>
                {myOrders.length === 0 ? (
@@ -258,7 +260,7 @@ export default function DeliveryDashboard() {
                            <CardContent>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                  <div>
-                                    <h4 className="font-medium text-gray-900">
+                                    <h4 className="font-medium text-gray-900 dark:text-gray-100">
                                        Customer
                                     </h4>
                                     <p className="text-sm text-gray-600">
@@ -269,7 +271,7 @@ export default function DeliveryDashboard() {
                                     </p>
                                  </div>
                                  <div>
-                                    <h4 className="font-medium text-gray-900">
+                                    <h4 className="font-medium text-gray-900 dark:text-gray-100">
                                        Delivery Address
                                     </h4>
                                     <p className="text-sm text-gray-600">
@@ -289,7 +291,7 @@ export default function DeliveryDashboard() {
                               )}
                               <div className="mt-4 flex justify-between items-center">
                                  <div className="text-lg font-bold">
-                                    Amount: $
+                                    Amount: ₹
                                     {Number(order.total_amount).toFixed(2)}
                                  </div>
                                  {order.status === "out_for_delivery" && (

@@ -26,6 +26,8 @@ async function initDatabase() {
 
       console.log("Connected to MySQL server");
 
+      await connection.execute("DROP DATABASE IF EXISTS online_food_delivery");
+
       // First, create the database
       await connection.execute(
          "CREATE DATABASE IF NOT EXISTS online_food_delivery"

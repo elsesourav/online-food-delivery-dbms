@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +10,7 @@ import {
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -128,7 +129,7 @@ export default function RestaurantMenu() {
 
    if (loading) {
       return (
-         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
             <div className="text-lg">Loading menu...</div>
          </div>
       );
@@ -137,21 +138,51 @@ export default function RestaurantMenu() {
    const categories = [...new Set(menuItems.map((item) => item.category))];
 
    return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
          {/* Header */}
-         <nav className="bg-white shadow-sm border-b">
+         <nav className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="flex justify-between items-center h-16">
                   <Link href="/" className="text-2xl font-bold text-orange-600">
                      FoodDelivery
                   </Link>
                   <div className="flex items-center space-x-4">
-                     <Link href="/orders">
-                        <Button variant="outline">My Orders</Button>
-                     </Link>
-                     <Link href="/restaurants">
-                        <Button variant="outline">Back to Restaurants</Button>
-                     </Link>
+                     {session ? (
+                        <>
+                           <span className="text-sm text-gray-600">
+                              Welcome, {session.user.name}
+                           </span>
+                           {session.user.role === "customer" && (
+                              <Link href="/orders">
+                                 <Button variant="outline">My Orders</Button>
+                              </Link>
+                           )}
+                           <Link href="/restaurants">
+                              <Button variant="outline">
+                                 Back to Restaurants
+                              </Button>
+                           </Link>
+                           <Button
+                              variant="outline"
+                              onClick={() => signOut({ callbackUrl: "/" })}
+                           >
+                              Sign Out
+                           </Button>
+                           <ThemeToggle />
+                        </>
+                     ) : (
+                        <>
+                           <ThemeToggle />
+                           <Link href="/auth/customer/signin">
+                              <Button variant="outline">Sign In</Button>
+                           </Link>
+                           <Link href="/restaurants">
+                              <Button variant="outline">
+                                 Back to Restaurants
+                              </Button>
+                           </Link>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
@@ -159,7 +190,7 @@ export default function RestaurantMenu() {
 
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="mb-8">
-               <h1 className="text-3xl font-bold text-gray-900">
+               <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                   Restaurant Menu
                </h1>
                <p className="mt-2 text-gray-600">Choose your favorite dishes</p>
@@ -170,7 +201,7 @@ export default function RestaurantMenu() {
                <div className="lg:col-span-3">
                   {categories.map((category) => (
                      <div key={category} className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                        <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                            {category}
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -189,7 +220,7 @@ export default function RestaurantMenu() {
                                              </CardDescription>
                                           </div>
                                           <Badge variant="secondary">
-                                             ${Number(item.price).toFixed(2)}
+                                             ₹{Number(item.price).toFixed(2)}
                                           </Badge>
                                        </div>
                                     </CardHeader>
@@ -259,12 +290,12 @@ export default function RestaurantMenu() {
                                                 {item.name}
                                              </p>
                                              <p className="text-sm text-gray-500">
-                                                ${Number(item.price).toFixed(2)}{" "}
+                                                ₹{Number(item.price).toFixed(2)}{" "}
                                                 x {quantity}
                                              </p>
                                           </div>
                                           <p className="font-medium">
-                                             $
+                                             ₹
                                              {(
                                                 Number(item.price) * quantity
                                              ).toFixed(2)}
@@ -276,7 +307,7 @@ export default function RestaurantMenu() {
                               <hr />
                               <div className="flex justify-between items-center font-bold">
                                  <span>Total</span>
-                                 <span>${getTotalPrice().toFixed(2)}</span>
+                                 <span>₹{getTotalPrice().toFixed(2)}</span>
                               </div>
                               <Button
                                  className="w-full"

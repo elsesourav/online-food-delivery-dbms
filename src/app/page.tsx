@@ -1,3 +1,6 @@
+"use client";
+
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
    Card,
@@ -6,13 +9,16 @@ import {
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Home() {
+   const { data: session } = useSession();
+
    return (
-      <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-800">
          {/* Header */}
-         <nav className="bg-white shadow-sm border-b">
+         <nav className="bg-white dark:bg-gray-900 shadow-sm border-b dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="flex justify-between items-center h-16">
                   <div className="flex items-center">
@@ -21,34 +27,89 @@ export default function Home() {
                      </h1>
                   </div>
                   <div className="flex items-center space-x-4">
-                     <div className="relative group">
-                        <Button variant="outline">Sign In</Button>
-                        <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                           <div className="py-1">
-                              <Link
-                                 href="/auth/customer/signin"
-                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                              >
-                                 Customer Login
+                     {session ? (
+                        <>
+                           <span className="text-sm text-gray-600">
+                              Welcome, {session.user.name}
+                           </span>
+                           {session.user.role === "customer" && (
+                              <Link href="/orders">
+                                 <Button variant="outline">My Orders</Button>
                               </Link>
-                              <Link
-                                 href="/auth/restaurant/signin"
-                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                              >
-                                 Restaurant Manager
+                           )}
+                           {session.user.role === "restaurant_manager" && (
+                              <Link href="/dashboard/restaurant">
+                                 <Button variant="outline">Dashboard</Button>
                               </Link>
-                              <Link
-                                 href="/auth/delivery/signin"
-                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                              >
-                                 Delivery Personnel
+                           )}
+                           {session.user.role === "delivery_man" && (
+                              <Link href="/dashboard/delivery">
+                                 <Button variant="outline">Dashboard</Button>
                               </Link>
+                           )}
+                           <Button
+                              variant="outline"
+                              onClick={() => signOut({ callbackUrl: "/" })}
+                           >
+                              Sign Out
+                           </Button>
+                           <ThemeToggle />
+                        </>
+                     ) : (
+                        <>
+                           <ThemeToggle />
+                           <div className="relative group">
+                              <Button variant="outline">Sign In</Button>
+                              <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                                 <div className="py-1">
+                                    <Link
+                                       href="/auth/customer/signin"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Customer Login
+                                    </Link>
+                                    <Link
+                                       href="/auth/restaurant/signin"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Restaurant Manager
+                                    </Link>
+                                    <Link
+                                       href="/auth/delivery/signin"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Delivery Personnel
+                                    </Link>
+                                 </div>
+                              </div>
                            </div>
-                        </div>
-                     </div>
-                     <Link href="/auth/signup">
-                        <Button>Sign Up</Button>
-                     </Link>
+                           <div className="relative group">
+                              <Button>Sign Up</Button>
+                              <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                                 <div className="py-1">
+                                    <Link
+                                       href="/auth/signup"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Customer Signup
+                                    </Link>
+                                    <Link
+                                       href="/auth/restaurant/signup"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Restaurant Manager
+                                    </Link>
+                                    <Link
+                                       href="/auth/delivery/signup"
+                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
+                                       Delivery Personnel
+                                    </Link>
+                                 </div>
+                              </div>
+                           </div>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
@@ -143,11 +204,18 @@ export default function Home() {
                      <CardDescription className="mb-4">
                         Order delicious food from your favorite restaurants
                      </CardDescription>
-                     <Link href="/auth/customer/signin">
-                        <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                           Customer Login
-                        </Button>
-                     </Link>
+                     <div className="space-y-2">
+                        <Link href="/auth/customer/signin">
+                           <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                              Customer Login
+                           </Button>
+                        </Link>
+                        <Link href="/auth/signup">
+                           <Button variant="outline" className="w-full">
+                              Sign Up as Customer
+                           </Button>
+                        </Link>
+                     </div>
                   </CardContent>
                </Card>
                <Card className="border-blue-200 hover:shadow-lg transition-shadow">
@@ -160,11 +228,18 @@ export default function Home() {
                      <CardDescription className="mb-4">
                         Manage your restaurant orders and menu items
                      </CardDescription>
-                     <Link href="/auth/restaurant/signin">
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                           Manager Portal
-                        </Button>
-                     </Link>
+                     <div className="space-y-2">
+                        <Link href="/auth/restaurant/signin">
+                           <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                              Manager Login
+                           </Button>
+                        </Link>
+                        <Link href="/auth/restaurant/signup">
+                           <Button variant="outline" className="w-full">
+                              Sign Up as Manager
+                           </Button>
+                        </Link>
+                     </div>
                   </CardContent>
                </Card>
                <Card className="border-green-200 hover:shadow-lg transition-shadow">
@@ -177,11 +252,18 @@ export default function Home() {
                      <CardDescription className="mb-4">
                         Accept deliveries and manage your delivery schedule
                      </CardDescription>
-                     <Link href="/auth/delivery/signin">
-                        <Button className="w-full bg-green-600 hover:bg-green-700">
-                           Delivery Portal
-                        </Button>
-                     </Link>
+                     <div className="space-y-2">
+                        <Link href="/auth/delivery/signin">
+                           <Button className="w-full bg-green-600 hover:bg-green-700">
+                              Delivery Login
+                           </Button>
+                        </Link>
+                        <Link href="/auth/delivery/signup">
+                           <Button variant="outline" className="w-full">
+                              Sign Up as Delivery
+                           </Button>
+                        </Link>
+                     </div>
                   </CardContent>
                </Card>
             </div>
