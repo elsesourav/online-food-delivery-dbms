@@ -14,6 +14,7 @@ You can use tools like dbdiagram.io or draw.io to visualize the schema below.
 -->
 
 ### Table Definitions
+
 <img src="./schema-diagram.png" alt="Database Schema Diagram" style="width:80%;max-width:21cm;min-width:0;display:block;margin:auto;" />
 
 #### 1. `restaurants`
@@ -199,12 +200,12 @@ SELECT * FROM restaurants WHERE is_active = true;
 ```
 
 **Output:**
-| id  | name          | description                 | address                                   | phone           |
+| id | name | description | address | phone |
 | --- | ------------- | --------------------------- | ----------------------------------------- | --------------- |
-| 1   | Pizza Palace  | Authentic Italian pizzas... | 45, Park Street, Kolkata, ...             | +91-98765-43210 |
-| 2   | Burger House  | Gourmet burgers and fries   | 123, Salt Lake City, Sector V, Kolkata... | +91-98765-43211 |
-| 3   | Sushi Express | Fresh sushi and Japanese... | 78, Camac Street, Kolkata, ...            | +91-98765-43212 |
-| 4   | Tandoori Nights | North Indian tandoori...   | 12, Ballygunge, Kolkata, ...              | +91-98765-43213 |
+| 1 | Pizza Palace | Authentic Italian pizzas... | 45, Park Street, Kolkata, ... | +91-98765-43210 |
+| 2 | Burger House | Gourmet burgers and fries | 123, Salt Lake City, Sector V, Kolkata... | +91-98765-43211 |
+| 3 | Sushi Express | Fresh sushi and Japanese... | 78, Camac Street, Kolkata, ... | +91-98765-43212 |
+| 4 | Tandoori Nights | North Indian tandoori... | 12, Ballygunge, Kolkata, ... | +91-98765-43213 |
 
 ### 2. Get menu items for a restaurant
 
@@ -213,11 +214,11 @@ SELECT * FROM menu_items WHERE restaurant_id = 1 AND is_available = true;
 ```
 
 **Output:**
-| id  | name                | price  | category |
+| id | name | price | category |
 | --- | ------------------- | ------ | -------- |
-| 1   | Margherita Pizza    | 299.00 | Pizza    |
-| 2   | Pepperoni Pizza     | 349.00 | Pizza    |
-| 3   | Spaghetti Carbonara | 249.00 | Pasta    |
+| 1 | Margherita Pizza | 299.00 | Pizza |
+| 2 | Pepperoni Pizza | 349.00 | Pizza |
+| 3 | Spaghetti Carbonara | 249.00 | Pasta |
 
 ### 3. Get all orders for a customer
 
@@ -226,10 +227,10 @@ SELECT * FROM orders WHERE user_id = 1;
 ```
 
 **Output:**
-| id | user_id | restaurant_id | total_amount | status    | delivery_address                        |
+| id | user_id | restaurant_id | total_amount | status | delivery_address |
 |----|---------|--------------|-------------|-----------|------------------------------------------|
-| 1  | 1       | 1            | 598.00      | pending   | 15, Gariahat Road, Kolkata, ...          |
-| 2  | 1       | 1            | 299.00      | confirmed | 15, Gariahat Road, Kolkata, ...          |
+| 1 | 1 | 1 | 598.00 | pending | 15, Gariahat Road, Kolkata, ... |
+| 2 | 1 | 1 | 299.00 | confirmed | 15, Gariahat Road, Kolkata, ... |
 
 ### 4. Get all order items for an order
 
@@ -238,10 +239,10 @@ SELECT * FROM order_items WHERE order_id = 1;
 ```
 
 **Output:**
-| id | order_id | menu_item_id | quantity | price  |
+| id | order_id | menu_item_id | quantity | price |
 |----|----------|--------------|----------|--------|
-| 1  | 1        | 1            | 2        | 299.00 |
-| 2  | 1        | 3            | 1        | 249.00 |
+| 1 | 1 | 1 | 2 | 299.00 |
+| 2 | 1 | 3 | 1 | 249.00 |
 
 ---
 
@@ -276,6 +277,7 @@ SELECT * FROM order_items WHERE order_id = 1;
    npm run build
    npm start
    ``
+   ```
 
 ---
 
